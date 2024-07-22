@@ -1,0 +1,365 @@
+index.php
+<?php
+require_once 'includes/config.php'; // Include the database connection
+
+// Fetch the latest posts from the database
+$query = "SELECT posts.id, posts.title, posts.content, posts.created_at, users.username FROM posts JOIN users ON posts.author_id = users.id ORDER BY created_at DESC LIMIT 5";
+$result = $conn->query($query);
+?>
+
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Blog ZegarkiDawida</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        /* Dodatkowe style dla lepszego układu */
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+        header h1 {
+            margin: 0;
+        }
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            text-align: center;
+        }
+        nav ul li {
+            display: inline;
+            margin-right: 20px;
+        }
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+        }
+        main {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .posts {
+            margin-top: 20px;
+        }
+        .post {
+            margin-bottom: 40px;
+        }
+        .post h2 {
+            margin-bottom: 10px;
+        }
+        .post p {
+            margin-bottom: 10px;
+        }
+        .post footer {
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Witaj na Blogu!</h1>
+        <nav>
+            <ul>
+                <li><a href="index.php">Strona główna</a></li>
+                <li><a href="about.php">O mnie</a></li>
+                <li><a href="contact.php">Kontakt</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <?php if ($result->num_rows > 0): ?>
+            <section class="posts">
+                <?php while($row = $result->fetch_assoc()): ?>
+                    <article class="post">
+                        <h2><a href="post.php?id=<?= $row['id']; ?>"><?= htmlspecialchars($row['title']); ?></a></h2>
+                        <p><?= substr(htmlspecialchars($row['content']), 0, 200); ?>...</p>
+                        <footer>
+                            <span>Autor: <?= htmlspecialchars($row['username']); ?></span>
+                            <span>Data: <?= $row['created_at']; ?></span>
+                        </footer>
+                    </article>
+                <?php endwhile; ?>
+            </section>
+        <?php else: ?>
+            <p>Brak postów do wyświetlenia.</p>
+        <?php endif; ?>
+    </main>
+
+    <footer>
+        <p>&copy; <?= date("Y"); ?> Twój Blog</p>
+    </footer>
+</body>
+</html>
+
+about.php
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>O mnie - Twój Blog</title>
+    <meta name="description" content="Dzielę się myślami, pomysłami i doświadczeniami dotyczącymi zegarków. Inspiruję i pomagam pasjonatom zegarków.">
+    <link rel="stylesheet" href="css/styles.css"> <!-- Adjust the path to your CSS file as needed -->
+    <style>
+        /* Dodatkowe style dla lepszego układu */
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+        .about-me {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>O mnie</h1>
+        <nav>
+            <ul>
+                <li><a href="index.php">Strona główna</a></li>
+                <li><a href="about.php">O mnie</a></li>
+                <li><a href="contact.php">Kontakt</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="about-me">
+            <h2>Witaj na moim blogu!</h2>
+            <p>Jestem Dawid, pasjonat zegarków, sportu i programowania. Na tym blogu dzielę się moimi myślami, pomysłami i doświadczeniami dotyczącymi zegarków. Mam nadzieję, że znajdziesz tutaj coś, co Cię zainspiruje i pomoże.</p>
+            
+            <br>
+            <h3>Dlaczego ten blog?</h3>
+            <p>Moim celem jest inspiracja innych pasjonatów zegarków poprzez dzielenie się wiedzą i doświadczeniem. Chcę, aby ten blog stał się miejscem, gdzie ludzie mogą pogłębiać swoją pasję i rozwijać się jako kolekcjonerzy.</p>
+            
+            <br>
+            <h3>Poznajmy się!</h3>
+            <p>Wolny czas spędzam na badaniu różnych modeli zegarków, uprawianiu sportu i doskonaleniu się w programowaniu. Chętnie dzielę się swoimi spostrzeżeniami i doświadczeniami ze społecznością zegarkową.</p>
+
+            <br>
+            <h3>Moje zdjęcie</h3>
+            <img src="img/ja2.jpg" alt="Moje zdjęcie">
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; <?= date("Y"); ?> Twój Blog</p>
+    </footer>
+</body>
+</html>
+
+contact.php
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Kontakt - Twój Blog</title>
+    <link rel="stylesheet" href="css/styles.css"> <!-- Adjust the path to your CSS file as needed -->
+    <style>
+        /* Dodatkowe style dla lepszego układu */
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+        .contact-form {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        input[type="text"],
+        input[type="email"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Kontakt</h1>
+        <nav>
+            <ul>
+                <li><a href="index.php">Strona główna</a></li>
+                <li><a href="about.php">O mnie</a></li>
+                <li><a href="contact.php">Kontakt</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="contact-form">
+            <h2>Masz pytania? Napisz do mnie!</h2>
+            <form action="send-message.php" method="POST">
+                <label for="name">Imię:</label>
+                <input type="text" id="name" name="name" required>
+
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+
+                <label for="message">Wiadomość:</label>
+                <textarea id="message" name="message" rows="4" required></textarea>
+
+                <button type="submit" name="submit">Wyślij</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; <?= date("Y"); ?> Twój Blog</p>
+    </footer>
+</body>
+</html>
+
+post.php
+<?php
+require_once 'includes/config.php'; // Include the database connection
+
+// Ensure an ID is present and is a number
+if (isset($_GET['id']) && is_numeric($_GET['id'])) {
+    $postId = $_GET['id'];
+
+    // Fetch the post from the database
+    $query = "SELECT posts.id, posts.title, posts.content, posts.created_at, users.username FROM posts JOIN users ON posts.author_id = users.id WHERE posts.id = ?";
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param("i", $postId);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows > 0) {
+        $post = $result->fetch_assoc();
+    } else {
+        header("Location: index.php"); // Redirect to index if no post found
+        exit;
+    }
+} else {
+    header("Location: index.php"); // Redirect to index if ID is not set or not valid
+    exit;
+}
+
+?>
+
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title><?= htmlspecialchars($post['title']); ?></title>
+    <link rel="stylesheet" href="css/style.css"> <!-- Adjust path as needed -->
+</head>
+<body>
+    <header>
+        <h1><a href="index.php">Powrót do bloga</a></h1>
+    </header>
+
+    <main>
+        <article class="post-detail">
+            <h2><?= htmlspecialchars($post['title']); ?></h2>
+            <?php if (!empty($post['image_path'])): ?>
+                <img src="<?= htmlspecialchars($post['image_path']); ?>" alt="Obrazek dołączony do posta">
+            <?php endif; ?>
+            <p><?= nl2br(htmlspecialchars($post['content'])); ?></p>
+            <footer>
+                <span>Autor: <?= htmlspecialchars($post['username']); ?></span>
+                <span>Data: <?= $post['created_at']; ?></span>
+            </footer>
+        </article>
+    </main>
+
+    <footer>
+        <p>&copy; <?= date("Y"); ?> Twój Blog</p>
+    </footer>
+</body>
+</html>
+
+blog-website/includes/contif.php
+<?php
+// Parametry połączenia z bazą danych
+$dbHost = 'localhost';
+$dbUsername = 'root'; // Zmień na swojego użytkownika bazy danych
+$dbPassword = ''; // Zmień na swoje hasło bazy danych
+$dbName = 'blog_database';
+
+// Tworzenie połączenia z bazą danych
+$conn = new mysqli($dbHost, $dbUsername, $dbPassword, $dbName);
+
+// Sprawdzenie połączenia
+if ($conn->connect_error) {
+    die("Połączenie nieudane: " . $conn->connect_error);
+}
+?>
+
+blog-website/admin/login.php
+<?php
+session_start();
+require_once('../includes/config.php');
+
+if (isset($_POST['submit'])) {
+    $username = $conn->real_escape_string($_POST['username']);
+    $password = md5($_POST['password']);
+
+    $query = "SELECT id, role FROM users WHERE username='$username' AND password='$password'";
+    $result = $conn->query($query);
+
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        $_SESSION['userid'] = $row['id'];
+        $_SESSION['role'] = $row['role'];
+        header('Location: index.php');
+    } else {
+        echo "<script>alert('Niepoprawne dane logowania');</script>";
+    }
+}
+?>
+blog-website/admin/index.php
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Panel administracyjny - Logowanie</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <div class="login-form">
+        <h2>Logowanie</h2>
+        <form action="login.php" method="post">
+            <input type="text" name="username" placeholder="Nazwa użytkownika" required>
+            <input type="password" name="password" placeholder="Hasło" required>
+            <button type="submit" name="submit">Zaloguj się</button>
+        </form>
+    </div>
+</body>
+</html>
+

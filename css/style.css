@@ -1,0 +1,244 @@
+/* Globalne style */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    color: #333;
+    line-height: 1.6;
+    background-color: #f4f4f4;
+    padding: 20px;
+    font-size: 16px;
+}
+
+/* Nagłówek */
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 30px 20px 15px;
+    text-align: center;
+}
+
+header:hover {
+    padding: 40px 20px 25px;
+    color: #ff0; /* Zmiana koloru tekstu podczas najechania */
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2em;
+}
+
+/* Nawigacja */
+nav ul {
+    list-style: none;
+    background-color: #333;
+    padding: 10px 0;
+    text-align: center;
+}
+
+nav ul li {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+nav ul li:hover {
+    transform: scale(1.1);
+}
+
+nav ul li:last-child {
+    margin-right: 0;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #fff;
+    padding: 10px 20px;
+    background: #45b14f;
+    border-radius: 4px;
+}
+
+nav ul li a:hover {
+    background: #2e803b;
+}
+
+/* Treść główna */
+main {
+    margin-top: 20px;
+}
+
+.post,
+.post-detail {
+    background: #fff;
+    margin-bottom: 20px;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.post:hover,
+.post-detail:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.post h2,
+.post-detail h2 {
+    margin-bottom: 10px;
+    font-size: 1.5em;
+}
+
+.post p,
+.post-detail p {
+    margin-bottom: 15px;
+}
+
+.post-detail footer,
+.post footer {
+    font-style: italic;
+    font-size: 0.85em;
+}
+
+/* Stopka */
+footer {
+    text-align: center;
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #333;
+    color: #fff;
+}
+
+/* Formularz kontaktowy */
+.contact-form label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.contact-form input[type="text"],
+.contact-form input[type="email"],
+.contact-form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+.contact-form input[type="text"]:focus,
+.contact-form input[type="email"]:focus,
+.contact-form textarea:focus {
+    border-color: #45b14f;
+}
+
+.contact-form textarea {
+    height: 150px;
+}
+
+.contact-form button[type="submit"] {
+    background: #45b14f;
+    color: #fff;
+    padding: 12px 20px;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.contact-form button[type="submit"]:hover {
+    background: #2e803b;
+}
+
+/* Komentarze */
+.comment {
+    margin-top: 20px;
+    padding: 10px;
+    border-left: 3px solid #45b14f;
+}
+
+.comment p {
+    margin-bottom: 10px;
+}
+
+.comment footer {
+    font-size: 0.85em;
+    font-style: italic;
+}
+
+/* Responsywność */
+@media screen and (max-width: 600px) {
+    nav ul li {
+        display: block;
+        margin: 10px 0;
+    }
+
+    .post,
+    .post-detail {
+        padding: 15px;
+    }
+
+    header,
+    footer {
+        padding: 20px;
+    }
+
+    header:hover,
+    footer:hover {
+        padding: 20px;
+    }
+}
+
+/* Styl niestandardowy */
+blockquote {
+    margin: 20px 0;
+    padding: 10px 20px;
+    background-color: #f9f9f9;
+    border-left: 5px solid #45b14f;
+}
+
+blockquote p {
+    margin-bottom: 0;
+    font-style: italic;
+}
+
+.button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #0f4b17;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.button:hover {
+    background-color: #2e803b;
+}
+
+/* Dodatkowe style */
+.error-message {
+    color: red;
+    font-weight: bold;
+}
+
+.success-message {
+    color: green;
+    font-weight: bold;
+}
+
+/* Responsywne ulepszenia */
+@media screen and (max-width: 768px) {
+    .post-detail .image img {
+        max-width: 100%;
+    }
+}
+
+/* Styl dla sekcji Kontakt i O mnie */
+.contact-section,
+.about-section {
+    background-color: #f4f4f4;
+    padding: 20px;
+}
